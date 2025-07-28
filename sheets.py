@@ -25,10 +25,24 @@ def open_sheet(worksheet=0):
     else:
         return sheet.worksheet(worksheet)
 
-# Append a row to the worksheet
+# Append a row to the worksheet with explicit column positioning
 def append_row(row_values, worksheet=0):
     ws = open_sheet(worksheet)
-    ws.append_row(row_values)
+    # Convert row_values to a list if it's not already
+    if not isinstance(row_values, list):
+        row_values = [row_values]
+    
+    # Get all values to find the next empty row
+    all_values = ws.get_all_values()
+    next_row = len(all_values) + 1
+    
+    # Write each value to the correct column (A, C, E, G)
+    column_mapping = ['A', 'C', 'E', 'G']
+    for i, value in enumerate(row_values):
+        if i < len(column_mapping):
+            cell_address = f"{column_mapping[i]}{next_row}"
+            # Use the correct format for ws.update()
+            ws.update(cell_address, [[value]])
 
 # Read all rows from the worksheet
 def get_all_rows(worksheet=0):
