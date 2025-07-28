@@ -1,6 +1,7 @@
 # router.py
 
 import habits
+import finance
 
 def route_message(message: str) -> str:
     msg = message.lower()
@@ -8,7 +9,7 @@ def route_message(message: str) -> str:
         return habits.log_habit_update(message)
     elif any(word in msg for word in ["remind", "reminder"]):
         return "[Reminders Module] Reminder set!"
-    elif any(word in msg for word in ["spent", "paid", "expense", "how much"]):
-        return "[Finance Module] Expense logged or summary provided!"
+    elif any(word in msg for word in ["spent", "paid", "₹", "expense", "summary"]):
+        return finance.handle_finance_message(message)
     else:
-        return "Sorry, I didn't understand that. Try 'help' for options." 
+        return "Sorry, I didn't understand that. Try:\n- Habit: 'Gym done'\n- Finance: 'Spent ₹500 on groceries'\n- Summary: 'Show expense summary'" 

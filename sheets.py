@@ -26,11 +26,11 @@ def open_sheet(worksheet=0):
         return sheet.worksheet(worksheet)
 
 # Append a row to the worksheet
-def append_row(sheet_name, row_values, worksheet=0):
+def append_row(row_values, worksheet=0):
     ws = open_sheet(worksheet)
     ws.append_row(row_values)
 
 # Read all rows from the worksheet
-def get_all_rows(sheet_name, worksheet=0):
+def get_all_rows(worksheet=0):
     ws = open_sheet(worksheet)
     return ws.get_all_values() 
